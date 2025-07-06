@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: accounts
-        image: mhrocha1997/accounts-api:v0.1.0
+        image: mhrocha1997/accounts-api:v0.1.2
         resources:
           limits:
             memory: "256Mi"
