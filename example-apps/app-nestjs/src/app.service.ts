@@ -4,8 +4,7 @@ import { createWriteStream } from 'fs';
 @Injectable()
 export class AppService {
   getHello(): string {
-    console.log(process.env.APP);
-    console.log(process.env.API_KEY);
+    console.log(process.env.OTEL_EXPORTER_OTLP_ENDPOINT);
     return 'Hello World!';
   }
   getExample(): string {
