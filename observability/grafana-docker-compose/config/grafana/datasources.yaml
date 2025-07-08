@@ -23,7 +23,7 @@ datasources:
     type: prometheus
     url: http://mimir:9090
     access: proxy
-    isDefault: true
+    isDefault: false
     editable: false
     version: 1
     uid: mimir
