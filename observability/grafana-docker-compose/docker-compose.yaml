@@ -16,6 +16,7 @@ services:
     depends_on: 
       - loki
       - tempo
+      - mimir
     
   loki:
     image: grafana/loki:latest
@@ -33,6 +34,40 @@ services:
     volumes:
       - ./config/tempo/tempo.yaml:/etc/tempo.yaml
     command: ["-config.file=/etc/tempo.yaml"]
+    ports: 
+    - 4327:4317
+    - 4328:4318
   
   promtail:
-    
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: always
+    volumes:
+      - /var/log:/var/log
+    command: [ "-config.file=/etc/promtail/config.yml"]
+
+  mimir:
+    image: grafana/mimir:latest
+    container_name: mimir
+    restart: always
+    ports:
+    - 9090:9090
+    command: [ "-config.file=/etc/mimir.yaml" ]
+    volumes:
+      - ./config/mimir/mimir.yaml:/etc/mimir.yaml
+  
+  otel:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel
+    restart: always
+    ports:
+      - 4317:4317
+      - 4318:4318
+      - 8888:8888
+    command: [ "--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./config/otel/otel.yaml:/etc/otelcol/config.yaml
+    depends_on:
+      - tempo
+      - mimir
+      - loki

@@ -18,3 +18,12 @@ datasources:
     editable: false
     version: 1
     uid: tempo
+  
+  - name: mimir
+    type: prometheus
+    url: http://mimir:9090
+    access: proxy
+    isDefault: true
+    editable: false
+    version: 1
+    uid: mimir
