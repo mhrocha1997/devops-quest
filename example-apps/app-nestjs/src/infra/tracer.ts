@@ -27,7 +27,9 @@ const metricReader = new PeriodicExportingMetricReader({
   exporter: metricsExporter,
   exportIntervalMillis: 10000,
 });
-const traceExporter = new OTLPTraceExporter();
+const traceExporter = new OTLPTraceExporter({
+  url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+});
 
 const resource = resourceFromAttributes({
   [ATTR_SERVICE_NAME]: SERVICE_NAME,
@@ -35,7 +37,7 @@ const resource = resourceFromAttributes({
 });
 
 const mergedResource = resource;
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const sdk = new NodeSDK({
   traceExporter,
@@ -49,9 +51,9 @@ const meterProvider = new MeterProvider({
   readers: [metricReader],
 });
 
-// metrics.setGlobalMeterProvider(meterProvider);
+metrics.setGlobalMeterProvider(meterProvider);
 
 export { 
   sdk,
-  //  metrics 
+   metrics 
 };
