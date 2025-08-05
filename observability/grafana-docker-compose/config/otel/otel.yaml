@@ -16,11 +16,14 @@ receivers:
 
 processors:
   batch:
+    send_batch_size: 100
+    send_batch_max_size: 100
+    timeout: 10s
   resource:
     attributes:
       - action: insert
         key: loki.resource,labels
-        value: service.name, service.environment
+        value: service.name, service.environment, service.version
 
 exporters:
   otlphttp/loki:
@@ -38,9 +41,14 @@ exporters:
       insecure: true
 
   prometheusremotewrite:
-    endpoint: http://mimir:9090/api/v1/push
+    endpoint: http://mimir:9009/api/v1/push
     tls:
       insecure: true
+
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    resource_to_telemetry_conversion:
+      enabled: true
 
 
 extensions:
@@ -62,4 +70,4 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheusremotewrite]
+      exporters: [prometheusremotewrite, prometheus]

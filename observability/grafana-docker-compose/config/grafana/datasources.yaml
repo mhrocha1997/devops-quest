@@ -21,9 +21,18 @@ datasources:
   
   - name: mimir
     type: prometheus
-    url: http://mimir:9090/prometheus
+    url: http://mimir:9009/prometheus
     access: proxy
     isDefault: false
     editable: false
     version: 1
     uid: mimir
+
+  - name: Prometheus
+    type: prometheus
+    url: http://prometheus:9090
+    access: proxy
+    isDefault: false
+    editable: false
+    version: 1
+    uid: prometheus
