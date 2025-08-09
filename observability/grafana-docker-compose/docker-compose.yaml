@@ -41,8 +41,8 @@ services:
       - sh
       - -euc
       - |
-        mkdir -p /data/loki
-        mkdir -p /data/loki-server
+        mkdir -p /data/loki-data
+        mkdir -p /data/loki-ruler
         minio server /data --console-address ':9001'
     ports:
       - '9000:9000'
