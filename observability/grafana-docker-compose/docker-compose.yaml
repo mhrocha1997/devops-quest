@@ -146,5 +146,21 @@ services:
       - loki
       - tempo
       - mimir
+
+  app-fastapi:
+    image: mhrocha1997/app-fastapi:v0.1.1
+    container_name: app-fastapi
+    restart: always
+    ports:
+      - 3003:3000
+    environment:
+      - OTEL_SERVICE_NAME=app-fastapi
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4317
+      - OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+      - OTEL_PYTHON_LOG_CORRELATION=true
+
 volumes:
   minio-data:
