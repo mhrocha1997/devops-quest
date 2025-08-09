@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { metrics } from './infra/tracer';
 import { createWriteStream } from 'fs';
 
 @Injectable()
 export class AppService {
   getHello(): string {
+    const metric = metrics.getMeter('app-nestjs')
+    const successMetrics = metric.createCounter('hello-success')
+    successMetrics.add(1)
     return 'Hello World!';
   }
   getExample(): string {
