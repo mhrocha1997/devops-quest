@@ -18,7 +18,7 @@ import {
 } from '@opentelemetry/api';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-grpc';
 
-const SERVICE_NAME = 'app-nestjs';
+const SERVICE_NAME =  process.env.SERVICE_NAME;
 
 const metricsExporter = new OTLPMetricExporter({
   url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
