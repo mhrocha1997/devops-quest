@@ -37,7 +37,7 @@ const resource = resourceFromAttributes({
 });
 
 const mergedResource = resource;
-// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const sdk = new NodeSDK({
   traceExporter,

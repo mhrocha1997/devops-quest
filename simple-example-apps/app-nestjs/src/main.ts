@@ -7,6 +7,6 @@ sdk.start();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   logger.info("App running!!")
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

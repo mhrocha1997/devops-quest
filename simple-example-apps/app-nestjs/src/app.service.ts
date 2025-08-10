@@ -8,8 +8,9 @@ export class AppService {
     const metric = metrics.getMeter('app-nestjs')
     const successMetrics = metric.createCounter('hello-success')
     successMetrics.add(1)
-    return 'Hello World!';
+    return 'Hello from NestJs!';
   }
+  
   getExample(): string {
     return "I'm on K8S!!!";
   }

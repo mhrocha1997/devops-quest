@@ -149,7 +149,7 @@ services:
 
   ## Autoinstrumented FastApi app
   app-fastapi:
-    image: mhrocha1997/app-fastapi:v0.1.6
+    image: mhrocha1997/app-fastapi:v0.2.2
     container_name: app-fastapi
     restart: always
     ports:
@@ -158,22 +158,24 @@ services:
       - OTEL_SERVICE_NAME=app-fastapi
       - OTEL_TRACES_EXPORTER=otlp
       - OTEL_METRICS_EXPORTER=otlp
-      - OTEL_LOGS_EXPORTER=otlp,console
+      - OTEL_LOGS_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4317
       - OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://otel:4317
       - OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
       - OTEL_PYTHON_LOG_CORRELATION=true
+      - EXTERNAL_APP_URL=http://app-nestjs:3000
+
   
   ## NestJs instrumented app
   app-nestjs:
-    image: mhrocha1997/app-nestjs:v0.1.0
+    image: mhrocha1997/app-nestjs:v0.1.2
     container_name: app-nestjs
     restart: always
     ports:
       - 3001:3000
     environment:
       - SERVICE_NAME=app-nestjs
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4318
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4317
 
 volumes:
   minio-data:
