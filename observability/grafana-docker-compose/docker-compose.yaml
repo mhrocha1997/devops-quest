@@ -168,7 +168,7 @@ services:
   
   ## NestJs instrumented app
   app-nestjs:
-    image: mhrocha1997/app-nestjs:v0.1.2
+    image: mhrocha1997/app-nestjs:v0.1.6
     container_name: app-nestjs
     restart: always
     ports:
